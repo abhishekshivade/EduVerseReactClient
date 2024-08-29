@@ -1,19 +1,19 @@
-import { JWT_TOKEN_STORAGE_KEY,USER_TYPE_STORAGE_KEY,USER_ID_STORAGE_KEY } from "../constants/authConstants"
+import axios from 'axios';
+import { AUTH_LOGIN, POST_USERS } from '../constants/apiConstants';
 
-export const storeJwtToken=token=>sessionStorage.setItem(JWT_TOKEN_STORAGE_KEY,token)
+export const login = async user => {
+  // try {
+    // const credentials = {email,password}
+    // console.log(`${AUTH_LOGIN}, ${credentials}`,)
+    const response = await axios.post(`${AUTH_LOGIN}`, user);
+    return response;
+  // } catch (error) {
+  //   throw error;
+  // }
+};
 
-export const removeJwtToken=()=>sessionStorage.removeItem(JWT_TOKEN_STORAGE_KEY)
+export const registerStudent = async user =>{
+  const response = await axios.post(`${POST_USERS}`,user)
 
-export const getJwtToken=()=>sessionStorage.getItem(JWT_TOKEN_STORAGE_KEY)
-
-export const storeUserType=userType=>sessionStorage.setItem(USER_TYPE_STORAGE_KEY,userType)
-
-export const removeUserType=()=>sessionStorage.removeItem(USER_TYPE_STORAGE_KEY)
-
-export const getUserType=()=>sessionStorage.getItem(USER_TYPE_STORAGE_KEY)
-
-export const storeUserId=userId=>sessionStorage.setItem(USER_ID_STORAGE_KEY,userId)
-
-export const removeUserId=()=>sessionStorage.removeItem(USER_ID_STORAGE_KEY)
-
-export const getUserId=()=>sessionStorage.getItem(USER_ID_STORAGE_KEY)
+  return response
+}

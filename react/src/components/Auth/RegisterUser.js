@@ -1,331 +1,290 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { registerUser } from "../../services/userServices";
+import { registerStudent } from "../../services/authServices";
 import { BASE_ROUTE } from "../../constants/appConstants";
-import validateUser from "../utils/Validator";
-
-import Video from "../../assets/images/Login/video3.mp4"
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const RegisterUser = () => {
-
   const [userData, setUserData] = useState({
     firstName: "",
     middleName: "",
     lastName: "",
-    role: "student",
-    email: "",
-    contact: "",
+    emailId: "",
+    mobileNumber: "",
     password: "",
     courseId: "",
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [error, setError] = useState({
-    firstNameErr: "",
-    middleNameErr: "",
-    lastNameErr: "",
-    emailErr: "",
-    contactErr: "",
-    passwordErr: "",
-    confirmPasswordErr: "",
-    formErr: "",
-  });
-
+  const [error, setError] = useState({});
   const navigate = useNavigate();
-  const validate = validateUser();
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   const handleChange = (e) => {
     setUserData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
-    }))
+    }));
   };
 
-  const handleFirstName = e => {
-    e.preventDefault();
-
-    const firstNameErr = validate.validateName(userData.firstName)
-
-    setError({
-      ...error,
-      firstNameErr
-    })
-  }
-
-  const handleMiddleName = e => {
-    e.preventDefault();
-
-    const middleNameErr = validate.validateName(userData.firstName)
-
-    setError({
-      ...error,
-      middleNameErr
-    })
-  }
-
-  const handleLastName = e => {
-    e.preventDefault();
-
-    const lastNameErr = validate.validateName(userData.firstName)
-
-    setError({
-      ...error,
-      lastNameErr
-    })
-  }
-
-  const handleContact = (e) => {
-    e.preventDefault();
-
-    const contactErr = validate.validateMobileNumber(
-      userData.contact
-    );
-
-    setError({
-      ...error,
-      contactErr,
-    });
-  };
-
-  const handleEmailId = (e) => {
-    e.preventDefault();
-
-    const emailErr = validate.validateEmail(userData.email);
-
-    setError({
-      ...error,
-      emailErr,
-    });
-  };
-
-  const handleConfirmPassword = (e) => {
-    e.preventDefault();
-
-    const confirmPasswordErr = userData.password === confirmPassword;
-    if (confirmPasswordErr) {
-      setError({ ...error, confirmPasswordErr: null });
+  // Validation Functions
+  const handleFirstName = () => {
+    if (userData.firstName.trim() === "") {
+      setError((prevError) => ({
+        ...prevError,
+        firstNameErr: "First Name is required",
+      }));
     } else {
-      setError({ ...error, confirmPasswordErr: "Passwords do not match" });
-      return;
+      setError((prevError) => ({
+        ...prevError,
+        firstNameErr: "",
+      }));
     }
   };
 
-  const handlePasswordBlur = (e) => {
-    e.preventDefault();
-
-    const passwordErr = validate.validatePassword(userData.password);
-
-    setError({
-      ...error,
-      passwordErr,
-    });
+  const handleLastName = () => {
+    if (userData.lastName.trim() === "") {
+      setError((prevError) => ({
+        ...prevError,
+        lastNameErr: "Last Name is required",
+      }));
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        lastNameErr: "",
+      }));
+    }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleEmail = () => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(userData.emailId)) {
+      setError((prevError) => ({
+        ...prevError,
+        emailErr: "Please enter a valid email",
+      }));
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        emailErr: "",
+      }));
+    }
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+  const handlePassword = () => {
+    if (userData.password.length < 8) {
+      setError((prevError) => ({
+        ...prevError,
+        passwordErr: "Password must be at least 8 characters long",
+      }));
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        passwordErr: "",
+      }));
+    }
+  };
+
+  const handleConfirmPassword = () => {
+    if (userData.password !== confirmPassword) {
+      setError((prevError) => ({
+        ...prevError,
+        confirmPasswordErr: "Passwords do not match",
+      }));
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        confirmPasswordErr: "",
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (userData.password !== confirmPassword) {
+      setError((prevError) => ({
+        ...prevError,
+        confirmPasswordErr: "Passwords do not match",
+      }));
+      return;
+    }
+
     try {
-      // const response = await registerUser(userData);
-      const response = null
-      if (response.status === 201) {
+      const response = await registerStudent(userData);
+
+      if (response && response.status === 201) {
         navigate(BASE_ROUTE);
       }
     } catch (error) {
-      setError({ ...error, formErr: "Please enter correct data" });
+      setError((prevError) => ({
+        ...prevError,
+        generalErr: "Failed to register. Please check your data and try again.",
+      }));
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-
-      <video autoplay={"true"} loop muted src={Video}
-        class="z-1 w-auto min-w-full  min-h-cover max-w-none">
-      </video>
-      <div className="absolute z-2 border-2 border-black border-none text-center p-8 space-y-6 rounded-lg">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-black md:text-3xl">
-            Register
-          </h2>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md sm:w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12">
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        {error.generalErr && (
+          <p className="text-red-500 text-xs mb-4 text-center">{error.generalErr}</p>
+        )}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={userData.firstName}
+              onChange={handleChange}
+              onBlur={handleFirstName}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+            <p className="text-red-500 text-xs mt-1">{error.firstNameErr}</p>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="middleName" className="block text-sm font-medium text-gray-700">Middle Name</label>
+            <input
+              type="text"
+              id="middleName"
+              name="middleName"
+              value={userData.middleName}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={userData.lastName}
+              onChange={handleChange}
+              onBlur={handleLastName}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+            <p className="text-red-500 text-xs mt-1">{error.lastNameErr}</p>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="emailId" className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              type="email"
+              id="emailId"
+              name="emailId"
+              value={userData.emailId}
+              onChange={handleChange}
+              onBlur={handleEmail}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+            <p className="text-red-500 text-xs mt-1">{error.emailErr}</p>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700">Mobile Number</label>
+            <input
+              type="tel"
+              id="mobileNumber"
+              name="mobileNumber"
+              value={userData.mobileNumber}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+          <div className="mb-6 relative">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              onBlur={handlePassword}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 flex items-center px-3 py-2 text-gray-500"
+            >
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className="h-8 w-6 mt-6"
+                aria-hidden="true"
+              />
+            </button>
+            <p className="text-red-500 text-xs mt-1">{error.passwordErr}</p>
+          </div>
+          <div className="mb-6 relative">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              onBlur={handleConfirmPassword}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              required
+            />
+            <button
+              type="button"
+              onClick={toggleConfirmPasswordVisibility}
+              className="absolute inset-y-0 right-0 flex items-center px-3 py-2 text-gray-500"
+            >
+              <FontAwesomeIcon
+                icon={showConfirmPassword ? faEyeSlash : faEye}
+                className="h-8 w-6 mt-6"
+                aria-hidden="true"
+              />
+            </button>
+            <p className="text-red-500 text-xs mt-1">{error.confirmPasswordErr}</p>
+          </div>
+          
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Select Course</label>
+          <select
+            name="courseId"
+            value={userData.courseId}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          >
+            <option value="" disabled>
+              Select your course
+            </option>
+            <option value="1">DAC</option>
+            <option value="2">DBDA</option>
+          </select>
         </div>
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <div className="flex gap-6">
-              <div>
-                <div className="flex border-b-black border-b-2 my-2 py-1 text-white">
-                  <input
-                    type="text"
-                    className="w-11/12 bg-transparent outline-none placeholder-black"
-                    placeholder="First Name"
-                    onChange={handleChange}
-                    name="fristName"
-                    value={userData.firstName}
-                    onBlur={handleFirstName}
-                    required
-                  />
-                  <div className="w-2/12 flex items-center justify-center">
-                    <i className="fa-solid fa-envelope text-x1"></i>
-                  </div>
-                </div>
-                <p className="text-red-500 text-start text-sm w-60">
-                  {error.firstNameErr ? error.firstNameErr : <br />}
-                </p>
-              </div>
-              <div>
-                <div className="flex border-b-black border-b-2 my-2 py-1">
-                  <input
-                    type="text"
-                    className="w-11/12 bg-transparent outline-none placeholder-black"
-                    placeholder="Middle Name"
-                    onChange={handleChange}
-                    name="middleName"
-                    value={userData.middleName}
-                    onBlur={handleMiddleName}
-                    required
-                  />
-                  <div className="w-2/12 flex items-center justify-center">
-                    <i className="fa-solid fa-envelope text-x1"></i>
-                  </div>
-                </div>
-                <p className="text-red-500 text-start text-sm w-60">
-                  {error.middleNameErr ? error.middleNameErr : <br />}
-                </p>
-              </div>
-              <div>
-                <div className="flex border-b-black border-b-2 my-2 py-1">
-                  <input
-                    type="text"
-                    className="w-11/12 bg-transparent outline-none placeholder-black"
-                    placeholder="Last Name"
-                    onChange={handleChange}
-                    name="text"
-                    value={userData.lastName}
-                    onBlur={handleLastName}
-                    required
-                  />
-                  <div className="w-2/12 flex items-center justify-center">
-                    <i className="fa-solid fa-envelope text-x1"></i>
-                  </div>
-                </div>
-                <p className="text-red-500 text-start text-sm w-60">
-                  {error.lastNameErr ? error.lastNameErr : <br />}
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-6">
-              <div>
-                <div className="flex border-b-black border-b-2 my-2 py-1">
-                  <input
-                    type="email"
-                    className="w-11/12 bg-transparent outline-none placeholder-black"
-                    placeholder="Enter your Email Address"
-                    onChange={handleChange}
-                    name="email"
-                    value={userData.email}
-                    onBlur={handleEmailId}
-                    required
-                  />
-                  <div className="w-2/12 flex items-center justify-center">
-                    <i className="fa-solid fa-envelope text-x1"></i>
-                  </div>
-                </div>
-                <p className="text-red-500 text-start text-sm w-60">
-                  {error.emailErr ? error.emailErr : <br />}
-                </p>
-              </div>
-              <div>
-                <div className="flex border-b-black border-b-2 my-2 py-1">
-                  <input
-                    type="tel"
-                    className="w-11/12 bg-transparent outline-none placeholder-black"
-                    placeholder="Enter your Mobile Number"
-                    onChange={handleChange}
-                    name="contact"
-                    value={userData.contact}
-                    onBlur={handleContact}
-                    required
-                  />
-                  <div className="w-2/12 flex items-center justify-center">
-                    <i className="fa-solid fa-mobile text-x1"></i>
-                  </div>
-                </div>
-                <p className="text-red-500 text-start text-sm w-96">
-                  {error.contactErr ? error.contactErr : <br />}
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-6">
-              <div>
-                <div className="flex items-center border-b-2 my-2 border-black">
-                  <input
-                    // type={showPassword ? "text" : "password"}
-                    type="text"
-                    className="flex-grow bg-transparent outline-none placeholder-black"
-                    placeholder="Enter password"
-                    onChange={handleChange}
-                    name="password"
-                    value={userData.password}
-                    onBlur={handlePasswordBlur}
-                    required
-                  />
-                  {/* <i
-                    className={`fa-solid text-xl cursor-pointer ${showPassword ? VisibilityOffIcon: VisibilityIcon
-                      }`}
-                    onClick={togglePasswordVisibility}
-                  ></i> */}
-                </div>
-                <p className="text-red-500 text-start text-sm w-96">
-                  {error.passwordErr ? error.passwordErr : <br />}
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center border-b-2 my-2 border-black">
-                  <input
-                    // type={showConfirmPassword ? "text" : "password"}
-                    type="password"
-                    className="flex-grow bg-transparent outline-none placeholder-black"
-                    placeholder="Re-Enter password"
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    onBlur={handleConfirmPassword}
-                    required
-                  />
-                  {/* <i
-                    className={`fa-solid text-xl cursor-pointer ${showConfirmPassword ? VisibilityOffIcon : VisibilityIcon
-                      }`}
-                    onClick={toggleConfirmPasswordVisibility}
-                  ></i> */}
-                </div>
-                <p className="text-red-500 text-start text-sm w-96">
-                  {error.confirmPasswordErr ? error.confirmPasswordErr : <br />}
-                </p>
-              </div>
-            </div>
-            {error.formErr && <p className="text-red-500">{error.formErr}</p>}
-            <div className="text-center">
-              <button
-                type="submit"
-                className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
-              >
-                Submit
-              </button>
-            </div>
+          <div className="mb-4 text-center">
+            <button
+              type="submit"
+              className="w-fit mx-auto text-white bg-[#28425a] px-4 py-2 rounded-md hover:bg-white hover:text-[#28425a] hover:border-[#1e3a8a] border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1e3a8a] transition-transform transform hover:scale-105"
+            >
+              Register
+            </button>
+          </div>
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link to="/login" className="text-indigo-600 hover:text-indigo-800">
+                Login
+              </Link>
+            </p>
           </div>
         </form>
-        <p>Already have account <Link to={BASE_ROUTE} className="text-blue-700 underline">Login here</Link></p>
       </div>
     </div>
   );

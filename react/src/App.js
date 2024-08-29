@@ -1,61 +1,71 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import { ABOUT, ADD_USER, ADMIN_DASHBOARD, BASE_ROUTE, CONTACT, MANAGE_USER, REGISTER_STUDENT, STUDENT_DASHBOARD, STUDENT_NOTES, STUDENT_PROFILE, STUDENT_QUIZ, TEACHER_DASHBOARD, TEACHER_NOTES, TEACHER_PROFILE, TEACHER_QUIZ } from './constants/appConstants'
-import Navbar from './components/Common/Navbar';
-import Login from './components/Auth/Login';
-import RegisterUser from './components/Auth/RegisterUser';
-import Footer from './components/Common/Footer';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/auth/Login"
+import StudentDashboard from "./components/students/StudentDashboard";
+// import TeacherDashboard from "./components/pages/TeacherDashboard";
+// import AdminDashboard from "./components/pages/AdminDashboard";
+import { useSelector } from "react-redux";
+import Navbar from "./components/common/Navbar";
+import Footer from "./components/common/Footer";
+import About from './components/pages/About'
+import Contact from './components/pages/Contact'
+import { ABOUT_US, CONTACT_US, REGISTER_STUDENT } from "./constants/appConstants";
+import RegisterUser from "./components/auth/RegisterUser";
 
-function App() {
+const App = () => {
+  const { token, role } = useSelector((state) => state.auth);
+
   return (
-    <BrowserRouter>
+    <Router>
 
-    <Navbar/>
+      <Navbar />
 
       <Routes>
-        <Route path={BASE_ROUTE} element={<Login/>}/>
-        <Route path={ABOUT} element={''}/>
-        <Route path={CONTACT} element={''}/>
+        <Route path="/login" element={token ? <Navigate to={`/${role.toLowerCase()}/dashboard`} /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path={ABOUT_US} element={<About />} />
+        <Route path={CONTACT_US} element={<Contact />} />
+        <Route path={REGISTER_STUDENT} element={<RegisterUser />} />
 
-        {/* Admin Routes */}
-        <Route path={ADMIN_DASHBOARD} element={''}/>
-        <Route path={ADD_USER} element={''}/>
-        <Route path={MANAGE_USER} element={''}/>
+        <Route
+          path="/student/dashboard"
+          element={
+            token && role === "Student" ? (
+              <StudentDashboard />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
 
-        {/* Student Routes */}
-        <Route path={REGISTER_STUDENT} element={<RegisterUser/>}/>
-        <Route path={STUDENT_DASHBOARD} element={''}/>
-        <Route path={STUDENT_NOTES} element={''}/>
-        <Route path={STUDENT_QUIZ} element={''}/>
-        <Route path={STUDENT_PROFILE} element={''}/>
+        {/* <Route
+            path="/teacher/dashboard"
+            element={
+              token && role === "Teacher" ? (
+                <TeacherDashboard />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          /> */}
 
-        {/* Teacher Routes */}
-        <Route path={TEACHER_DASHBOARD} element={''}/>
-        <Route path={TEACHER_NOTES} element={''}/>
-        <Route path={TEACHER_QUIZ} element={''}/>
-        <Route path={TEACHER_PROFILE} element={''}/>
+        {/* <Route
+            path="/admin/dashboard"
+            element={
+              token && role === "Admin" ? (
+                <AdminDashboard />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          /> */}
+
+        {/* Catch-all route to redirect to login */}
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-
-      {/* Footer element here */}
-      <Footer/>
-    </BrowserRouter>
+      <Footer />
+    </Router>
   );
-}
+};
 
 export default App;
-
-/*
-
-Reference Code
-
-<Route path={urlPath} element={<element/>}/>
-
-for TailwindCss
-
-    <div className="App">
-      <h1 className="text-3xl font-bold">
-      Hello world!
-    </h1>
-    </div>
-
-*/

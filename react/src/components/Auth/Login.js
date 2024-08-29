@@ -1,133 +1,134 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { userLogin } from "../../services/userServices";
-import { STUDENT_DASHBOARD, TEACHER_DASHBOARD, BASE_ROUTE, ADMIN_DASHBOARD, REGISTER_STUDENT } from "../../constants/appConstants";
-import { getJwtToken, storeJwtToken, storeUserType, storeUserId, getUserType } from "../../services/authServices";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import PersonIcon from '@mui/icons-material/Person';
-import KeyIcon from '@mui/icons-material/Key';
-
-// import Video1 from "../../assets/images/Login/video1.mp4"
-// import Video2 from "../../assets/images/Login/video2.mp4"
-import Video from "../../assets/images/Login/video3.mp4"
-// import Video4 from "../../assets/images/Login/video4.mp4"
-
-// import Slider from "../utils/Slider";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+// import { login } from '../../store/actions/authActions'
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { LOGIN_SUCCESS } from '../../store/types/authTypes';
+import axios from "axios"
+import { AUTH_LOGIN } from '../../constants/apiConstants';
+import { REGISTER_STUDENT } from '../../constants/appConstants';
+import validateUser from '../utils/Validator';
 
 const Login = () => {
-  const [loginCredentials, setLoginCredentials] = useState({
-    userId: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
-// const slides=[
-//     Video1,Video2,Video3,Video4
-// ]
+  useEffect(()=>sessionStorage.clear())
 
-  useEffect(() => {
-    if (getJwtToken()) {
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-      if (getUserType() === "STUDENT") navigate(STUDENT_DASHBOARD);
-      if (getUserType() === "TEACHER") navigate(TEACHER_DASHBOARD);
-      if (getUserType() === "ADMIN") navigate(ADMIN_DASHBOARD);
-    } else navigate(BASE_ROUTE)
-  }, [navigate]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginCredentials((prevCredentials) => ({
-      ...prevCredentials,
-      [name]: value,
-    }));
-  };
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
     try {
-      //  const response = await userLogin(loginCredentials);
-      const response = null;
+      const response = await axios.post(`${AUTH_LOGIN}/`, { email, password });
 
-      if (response.status === 200) {
-        storeJwtToken(response.data.token);
-        storeUserType(response.data.userType)
-        storeUserId(response.data.userID)
+      const { token, userId, role } = response.data;
+      
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('role', role);
 
-        if (getUserType() === "STUDENT") navigate(STUDENT_DASHBOARD);
-        if (getUserType() === "TEACHER") navigate(TEACHER_DASHBOARD);
-        if (getUserType() === "ADMIN") navigate(ADMIN_DASHBOARD);
-      }
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { token, userId, role }
+      });
+
+      navigate('/dashboard');
+
     } catch (error) {
-      setError("Invalid username or password");
+      console.error('Login failed:', error);
+      setErrors({ ...errors, general: 'Login failed. Please try again.' });
+     }
+
+
+  }
+
+  const handleEmail = () => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(email)) {
+      setErrors((prevError) => ({
+        ...prevError,
+        email: "Please enter a valid email",
+      }));
+    } else {
+      setErrors((prevError) => ({
+        ...prevError,
+        email: "",
+      }));
     }
   };
 
-  return (
-    <div className="w-full h-[500px] flex items-center justify-center">
+  const handlePasword=()=>{
 
-       <video autoplay={"true"} loop muted src={Video}
-            class="z-1 w-auto pt-80
-            min-w-full min-h-cover max-w-none">
-        </video> 
-      <div className="absolute z-2 border-2 border-black border-none text-center rounded-lg py-2 sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-96 mt-60">
-        <h2 className="text-black font-bold text-2xl md:text-3xl mt-3">Login</h2>
-        <form className="my-2" onSubmit={handleSubmit}>
-          <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
-            <div className="mx-2">
-              <PersonIcon />
-            </div>
+    // const passwordErr = null
+  }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
-              type="text"
-              name="userId"
-              value={loginCredentials.userId}
-              onChange={handleChange}
-              required
-              className="w-full bg-transparent outline-none placeholder-black"
-              placeholder="Enter User ID"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={handleEmail}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
-          <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
-            <div className="mx-2">
-              <KeyIcon />
-            </div>
+          <div className="mb-6 relative">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
-              type={passwordVisible ? "text" : "password"}
-              name="password"
-              value={loginCredentials.password}
-              onChange={handleChange}
-              required
-              className="w-full bg-transparent outline-none placeholder-black"
-              placeholder="Enter Password"
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             <button
               type="button"
               onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 flex items-center px-3 py-2 text-gray-500"
             >
-              {passwordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className="h-8 w-6 mt-6"
+                aria-hidden="true"
+              />
+            </button>
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+          </div>
+          {errors.general && <p className="text-red-500 text-xs mb-4">{errors.general}</p>}
+          <div className="mb-4 text-center">
+            <button
+              type="submit"
+              className="w-fit mx-auto text-white bg-[#28425a] px-4 py-2 rounded-md hover:bg-white hover:text-[#28425a] hover:border-[#1e3a8a] border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1e3a8a] transition-transform transform hover:scale-105"
+            >
+              Login
             </button>
           </div>
-
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <button
-            type="submit"
-            className="bg-black w-20 h-[35px] text-white rounded-full mb-3 hover:bg-white hover:text-black hover:font-bold hover:border hover:border-black hover:border-2"
-          >
-            Login
-          </button>
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account? {' '}
+              <Link to={REGISTER_STUDENT} className="text-indigo-600 hover:text-indigo-800">
+                Sign Up
+              </Link>
+            </p>
+          </div>
         </form>
-
-        <p>Dont't have account <Link to={REGISTER_STUDENT} className="text-blue-700 underline">Register here</Link></p>
       </div>
     </div>
   );

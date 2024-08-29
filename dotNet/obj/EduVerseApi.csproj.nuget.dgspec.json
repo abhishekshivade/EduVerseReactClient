@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CDAC Projects\\Major Project\\EduVerseApi\\EduVerseApi.csproj": {}
+    "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\EduVerseApi.csproj": {}
   },
   "projects": {
-    "D:\\CDAC Projects\\Major Project\\EduVerseApi\\EduVerseApi.csproj": {
+    "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\EduVerseApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\EduVerseApi.csproj",
+        "projectUniqueName": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\EduVerseApi.csproj",
         "projectName": "EduVerseApi",
-        "projectPath": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\EduVerseApi.csproj",
+        "projectPath": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\EduVerseApi.csproj",
         "packagesPath": "C:\\Users\\Abhishek\\.nuget\\packages\\",
-        "outputPath": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\obj\\",
+        "outputPath": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abhishek\\AppData\\Roaming\\NuGet\\NuGet.Config",

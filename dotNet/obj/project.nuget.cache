@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LU57rsYSFTU=",
+  "dgSpecHash": "jOmHXKJqjIc=",
   "success": true,
-  "projectFilePath": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\EduVerseApi.csproj",
+  "projectFilePath": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\EduVerseApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abhishek\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Abhishek\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

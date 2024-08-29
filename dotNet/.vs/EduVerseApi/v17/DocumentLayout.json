@@ -1,28 +1,28 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\",
+  "WorkspaceRootPath": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\eduverseapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\edu_verse_react_client\\dotnet\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\eduverseapi\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\edu_verse_react_client\\dotnet\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|solutionrelative:controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/EduVerseDb/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\eduverseapi\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\edu_verse_react_client\\dotnet\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|solutionrelative:controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\eduverseapi\\repositories\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\edu_verse_react_client\\dotnet\\repositories\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|solutionrelative:repositories\\noterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\eduverseapi\\repositories\\inoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|d:\\cdac projects\\major project\\edu_verse_react_client\\dotnet\\repositories\\inoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0839B4A5-A9A1-4D4B-AA09-D7592495E924}|EduVerseApi.csproj|solutionrelative:repositories\\inoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -47,11 +47,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\UserController.cs",
+              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAJwAAAAAAAAAAAAowK0AAAAfAAAA",
+              "ViewState": "AQIAAJwAAAAAAAAAAAAowKsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-19T08:19:33.581Z",
               "EditorCaption": ""
@@ -69,9 +69,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\AuthenticationController.cs",
+              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthenticationController.cs",
-              "ToolTip": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\AuthenticationController.cs",
               "RelativeToolTip": "Controllers\\AuthenticationController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -81,9 +81,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "NoteRepository.cs",
-              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Repositories\\NoteRepository.cs",
+              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Repositories\\NoteRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\NoteRepository.cs",
-              "ToolTip": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Repositories\\NoteRepository.cs",
+              "ToolTip": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Repositories\\NoteRepository.cs",
               "RelativeToolTip": "Repositories\\NoteRepository.cs",
               "ViewState": "AQIAAAcAAACgmZmZmZkhwAgAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -93,9 +93,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "INoteRepository.cs",
-              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Repositories\\INoteRepository.cs",
+              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Repositories\\INoteRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\INoteRepository.cs",
-              "ToolTip": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Repositories\\INoteRepository.cs",
+              "ToolTip": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Repositories\\INoteRepository.cs",
               "RelativeToolTip": "Repositories\\INoteRepository.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAgAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -105,9 +105,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "NotesController.cs",
-              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\NotesController.cs",
+              "DocumentMoniker": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\NotesController.cs",
               "RelativeDocumentMoniker": "Controllers\\NotesController.cs",
-              "ToolTip": "D:\\CDAC Projects\\Major Project\\EduVerseApi\\Controllers\\NotesController.cs",
+              "ToolTip": "D:\\CDAC Projects\\Major Project\\edu_verse_react_client\\dotNet\\Controllers\\NotesController.cs",
               "RelativeToolTip": "Controllers\\NotesController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

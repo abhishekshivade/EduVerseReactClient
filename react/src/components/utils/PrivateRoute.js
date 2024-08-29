@@ -1,13 +1,18 @@
-import React from 'react'
-import {Navigate,Outlet} from 'react-router-dom'
-import { BASE_ROUTE} from '../../constants/AppRoutes'
-import {useAuth} from '../../services/AuthContext'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { getToken } from '../../utils/auth';
 
-export const PrivateRoute = ({role}) => {
-    const {user}=useAuth();
-        if(user){
-        return <Outlet/>
-    }else{
-        return <Navigate to={BASE_ROUTE}/>
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      getToken() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      )
     }
-}
+  />
+);
+
+export default PrivateRoute;
