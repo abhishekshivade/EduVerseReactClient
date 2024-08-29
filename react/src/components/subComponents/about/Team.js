@@ -57,7 +57,7 @@ const teamMembers = [
 const TeamMemberCard = ({ member }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 text-center flex flex-col items-center">
-      <img className="rounded-full h-32 w-32 mb-4" src={member.imgUrl} alt={member.name} />
+      <img className="rounded-full h-32 w-32 object-cover mb-4" src={member.imgUrl} alt={member.name} />
       <h2 className="text-xl font-semibold text-gray-800 mb-2">{member.name}</h2>
       <p className="text-gray-500 text-sm mb-2">{member.location}</p>
       <p className="text-gray-700 text-sm mb-4">{member.description}</p>

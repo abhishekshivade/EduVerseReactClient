@@ -9,9 +9,8 @@ import { LOGIN_SUCCESS } from '../../store/types/authTypes';
 import axios from "axios"
 import { AUTH_LOGIN } from '../../constants/apiConstants';
 import { REGISTER_STUDENT } from '../../constants/appConstants';
-import validateUser from '../utils/Validator';
 
-const LoginForm = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -48,26 +47,6 @@ const LoginForm = () => {
 
   }
 
-  const handleEmail = () => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(email)) {
-      setErrors((prevError) => ({
-        ...prevError,
-        email: "Please enter a valid email",
-      }));
-    } else {
-      setErrors((prevError) => ({
-        ...prevError,
-        email: "",
-      }));
-    }
-  };
-
-  const handlePasword=()=>{
-
-    // const passwordErr = null
-  }
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -84,7 +63,6 @@ const LoginForm = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onBlur={handleEmail}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
@@ -134,4 +112,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Login;

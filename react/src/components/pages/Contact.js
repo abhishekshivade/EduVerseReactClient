@@ -1,5 +1,7 @@
 import React from 'react';
+// import {MailIcon, PhoneIcon} from '@heroicons/react/outline'
 import Team from '../subComponents/about/Team';
+// import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
