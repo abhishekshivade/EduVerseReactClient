@@ -1,16 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/auth/Login"
 import StudentDashboard from "./components/students/StudentDashboard";
 // import TeacherDashboard from "./components/pages/TeacherDashboard";
 // import AdminDashboard from "./components/pages/AdminDashboard";
 import { useSelector } from "react-redux";
-import Navbar from "./components/common/Navbar";
-import Footer from "./components/common/Footer";
+// import Navbar from "./components/common/Navbar";
+import Navbar from './components/Common/Navbar'
+// import Footer from "./components/common/Footer";
+import Footer from './components/Common/Footer'
 import About from './components/pages/About'
 import Contact from './components/pages/Contact'
 import { ABOUT_US, CONTACT_US, REGISTER_STUDENT } from "./constants/appConstants";
-import RegisterUser from "./components/auth/RegisterUser";
+import RegisterUser from "./components/Auth/RegisterUser";
 
 const App = () => {
   const { token, role } = useSelector((state) => state.auth);
