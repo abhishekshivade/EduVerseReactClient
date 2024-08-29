@@ -58,7 +58,7 @@ const Navbar = () => {
 
   const renderNavLinks = () => {
     if (token) {
-     /* if (role === "Student") {
+      if (role === "Student") {
         return (
           <>
             <Link to={STUDENT_NOTES} className="block px-4 py-2 text-white hover:bg-[#9CBAC0]">
@@ -108,7 +108,6 @@ const Navbar = () => {
           </>
         );
       }
-      */
 
       return null;
     } else {
@@ -168,7 +167,7 @@ const Navbar = () => {
         </button>
       </div>
       <ul className={`flex space-x-4 sm:flex ${isMobileMenuOpen ? 'block' : 'hidden'} sm:block`}>
-        {renderNavLinks()}
+        {/* {renderNavLinks()} */}
         {token && (
           <li>
             <button onClick={handleLogout} className="block px-4 py-2 text-white hover:bg-[#9CBAC0]">
