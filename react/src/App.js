@@ -12,6 +12,7 @@ import About from './components/pages/About'
 import Contact from './components/pages/Contact'
 import { ABOUT_US, CONTACT_US, REGISTER_STUDENT } from "./constants/appConstants";
 import RegisterUser from "./components/Auth/RegisterUser";
+import Login from './components/Auth/LoginForm'
 
 const App = () => {
   const { token, role } = useSelector((state) => state.auth);

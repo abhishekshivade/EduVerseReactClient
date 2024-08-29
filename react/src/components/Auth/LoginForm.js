@@ -11,7 +11,7 @@ import { AUTH_LOGIN } from '../../constants/apiConstants';
 import { REGISTER_STUDENT } from '../../constants/appConstants';
 import validateUser from '../utils/Validator';
 
-const Login = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -134,4 +134,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
